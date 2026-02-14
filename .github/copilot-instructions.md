@@ -52,7 +52,7 @@ node_modules/     # Dependencies (do not modify)
 - **Types/Interfaces**: PascalCase (e.g., `BoardState`, `PlayerId`)
 - **Functions/Variables**: camelCase (e.g., `getCastleOwner`, `boardState`)
 - **Constants**: UPPER_SNAKE_CASE for global constants (if any)
-- **Files**: kebab-case for test files (e.g., `board.test.ts`), camelCase for source files (e.g., `board.ts`)
+- **Files**: lowercase with hyphens for test files (e.g., `board.test.ts`), lowercase for source files (e.g., `board.ts`, `scoring.ts`)
 
 ### Code Style
 - Use ES6+ features (arrow functions, destructuring, template literals)
