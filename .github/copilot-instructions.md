@@ -65,6 +65,7 @@ node_modules/     # Dependencies (do not modify)
 - Import order: external libraries first, then internal modules
 - Use named exports, avoid default exports
 - Keep `types.ts` as the central type definition file
+- For internal TypeScript modules, always include the `.js` extension in import paths (e.g., `import { something } from './file.js'`) to maintain ESM compatibility with Bundler module resolution.
 - Each module should have a clear, single responsibility
 
 ## Testing Guidelines
