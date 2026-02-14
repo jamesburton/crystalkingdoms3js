@@ -185,7 +185,7 @@ export interface GameConfig {
 
 **Decision**: Support two modes:
 1. **Basic**: Points for captures, contagion gain, and contagion loss
-2. **Only Castles**: Points only for castle captures
+2. **Only Castles**: Points only for castle captures (no contagion gain points)
 
 **Consequences**:
 - ✅ Accommodates different play styles
