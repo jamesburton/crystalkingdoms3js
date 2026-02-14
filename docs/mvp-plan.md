@@ -137,15 +137,17 @@ This makes balancing and testing much easier.
 - Tune delays and values
 - Improve readability (HUD, score panel, current actor indicators)
 
-## Rules Clarifications To Lock Early
+## Rules Clarifications (Resolved)
 
-Before coding too far, decide these precisely:
+The following gameplay clarifications are now locked:
 
-1. **Adjacency** = orthogonal only, or include diagonals?
-2. On swipe chain, does **every step** apply scoring/contagion instantly, or on chain end only?
-3. If a player at **maximum castles** starts an action and would capture mid-chain, does chain stop immediately (as you suggested) or skip capture and continue?
-4. In **Only Castles** mode, confirm capture/loss contagion score adjustments still apply exactly as described.
-5. If timer expires mid-chain, does current chain complete or terminate immediately?
+1. **Adjacency** is orthogonal only (no diagonals), and actions also do not traverse diagonals.
+2. **Chain scoring timing** is step-by-step during chain traversal (fast/moderate cursor movement), with each score shown as it occurs.
+3. If wrap-around is disabled, a chain stops at the board edge; if enabled, the chain continues and wraps until it reaches an empty castle or one of the actor's own castles.
+4. In **Only Castles** mode, contagion gain scoring remains `0`.
+5. If time runs out while a chain is processing, the current chain still completes before the match ends.
+
+For implementation detail on (2): this means event production should remain per-step and deterministic in the rules engine, while UI timing/animation consumes those events at display speed.
 
 ## Test Plan (MVP)
 

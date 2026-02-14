@@ -49,7 +49,7 @@ describe('resolveAction', () => {
     expect(result.events.some((e) => e.type === 'increment_contagion')).toBe(true);
   });
 
-  it('captures enemy castle at contagion threshold', () => {
+  it('captures enemy castle at contagion threshold and does not double-count contagion points', () => {
     const state = baseState();
     state.config.captureContagion = 2;
     state.board.cells[0].owner = 'p2';
@@ -62,10 +62,22 @@ describe('resolveAction', () => {
     expect(result.state.board.cells[0].owner).toBe('p1');
     expect(result.state.players.p1.castlesOwned).toBe(1);
     expect(result.state.players.p2.castlesOwned).toBe(0);
+    expect(result.state.players.p1.score).toBe(3); // +2 contagion level reached, +1 castle capture
     expect(result.state.players.p2.score).toBe(-2);
   });
 
-  it('onlyCastles mode does not score contagion increment points', () => {
+  it('ends chain at board edge when wrap-around is disabled', () => {
+    const state = baseState();
+    state.config.wrapAround = false;
+    state.board.cells[3].owner = 'p2';
+
+    const result = resolveAction(state, 'p1', 3, 'right');
+
+    expect(result.state.board.cells[3].contagion.p1).toBe(1);
+    expect(result.events.at(-1)?.type).toBe('chain_ended');
+  });
+
+  it('onlyCastles mode keeps contagion scoring at 0', () => {
     const state = baseState();
     state.config.scoringMode = 'onlyCastles';
     state.board.cells[0].owner = 'p2';
