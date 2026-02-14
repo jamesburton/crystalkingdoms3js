@@ -61,7 +61,12 @@ export function advanceTurnDirector(
     opportunity: { ...state.opportunity },
   };
 
-  if (next.opportunity.isActive && next.opportunity.expiresAtMs !== null && nowMs >= next.opportunity.expiresAtMs) {
+  if (
+    next.opportunity.isActive &&
+    next.opportunity.claimedBy === null &&
+    next.opportunity.expiresAtMs !== null &&
+    nowMs >= next.opportunity.expiresAtMs
+  ) {
     next.opportunity = {
       isActive: false,
       cellIndex: null,
