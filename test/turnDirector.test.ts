@@ -89,4 +89,22 @@ describe('turnDirector', () => {
     expect(cleared.opportunity.isActive).toBe(false);
     expect(cleared.nextSpawnAtMs).toBe(25);
   });
+
+  it('rejects claim on expired opportunity', () => {
+    const base = createTurnDirectorState(0, { minSpawnDelayMs: 0, maxSpawnDelayMs: 0 }, fixedRandom(0));
+    const active = advanceTurnDirector(
+      base,
+      0,
+      [1],
+      { minSpawnDelayMs: 10, maxSpawnDelayMs: 10, cursorLifetimeMs: 50 },
+      fixedRandom(0),
+    );
+
+    expect(active.opportunity.expiresAtMs).toBe(50);
+
+    const result = tryClaimOpportunity(active, 'p1', 55);
+
+    expect(result.success).toBe(false);
+    expect(result.state.opportunity.claimedBy).toBe(null);
+  });
 });

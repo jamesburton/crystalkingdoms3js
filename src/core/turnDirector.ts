@@ -102,6 +102,10 @@ export function tryClaimOpportunity(
     return { state, success: false };
   }
 
+  if (state.opportunity.expiresAtMs !== null && nowMs >= state.opportunity.expiresAtMs) {
+    return { state, success: false };
+  }
+
   const next: TurnDirectorState = {
     nextSpawnAtMs: state.nextSpawnAtMs,
     opportunity: {
