@@ -20,7 +20,7 @@ Deliver a playable single-match prototype that validates:
 
 1. **Board + State Model**
    - Grid sizes: 4x4 to 8x8
-   - Castle ownership (`none | playerId`)
+   - Castle ownership (`null | playerId`)
    - Per-castle contagion map by player
    - Cursor position + active flag
 

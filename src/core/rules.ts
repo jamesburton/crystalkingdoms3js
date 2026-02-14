@@ -26,7 +26,9 @@ export function cloneState(state: MatchState): MatchState {
       ...state.board,
       cells: state.board.cells.map((cell) => ({ owner: cell.owner, contagion: { ...cell.contagion } })),
     },
-    players: Object.fromEntries(Object.entries(state.players).map(([id, p]) => [id, { ...p }])),
+    players: Object.fromEntries(
+      Object.entries(state.players).map(([id, p]) => [id, { ...p }]),
+    ),
   };
 }
 
@@ -38,6 +40,9 @@ export function resolveAction(
 ): ResolveResult {
   const next = cloneState(state);
   const actor = next.players[actorId];
+  if (!actor) {
+    throw new Error(`Unknown actorId: ${actorId}`);
+  }
   const events: RuleEvent[] = [];
 
   let index = startCell;

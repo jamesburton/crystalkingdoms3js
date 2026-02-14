@@ -16,6 +16,9 @@ export function attemptAction(
     throw new Error(`Unknown actor '${actorId}'`);
   }
 
+  if (startCell < 0 || startCell >= state.board.cells.length) {
+    throw new Error(`Invalid startCell index ${startCell}`);
+  }
   if (state.config.maxActions !== undefined && actor.actionsStarted >= state.config.maxActions) {
     return { state, events: [], blocked: 'maxActions' };
   }
