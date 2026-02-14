@@ -40,6 +40,9 @@ export function resolveAction(
 ): ResolveResult {
   const next = cloneState(state);
   const actor = next.players[actorId];
+  if (!actor) {
+    throw new Error(`Unknown actorId: ${actorId}`);
+  }
   const events: RuleEvent[] = [];
 
   let index = startCell;
