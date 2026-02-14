@@ -84,7 +84,7 @@ export function resolveAction(
       priorOwner.castlesOwned = Math.max(0, priorOwner.castlesOwned - 1);
 
       const adjacency = countAdjacentOwnedCastles(next, index, actorId);
-      const capturePoints = captureCastlePoints(adjacency) + contagionPoints;
+      const capturePoints = captureCastlePoints(adjacency);
       actor.score += capturePoints;
       actor.castlesOwned += 1;
 
