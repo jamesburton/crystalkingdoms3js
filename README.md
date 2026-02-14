@@ -150,6 +150,7 @@ When a direction is provided:
 #### Only Castles Mode
 - Points only for castle captures
 - No points for contagion gain
+- Points lost when losing a castle (based on contagion level)
 
 ### Constraints
 
