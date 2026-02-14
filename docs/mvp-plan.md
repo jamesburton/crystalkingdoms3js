@@ -160,6 +160,16 @@ For implementation detail on (2): this means event production should remain per-
 - Simulation test: run 1,000 CPU-only matches to catch deadlocks or invalid states.
 - Snapshot/integration test: board serialization remains valid across turns.
 
+
+## Current Build Progress
+
+- ✅ Core state types and board helpers implemented.
+- ✅ Deterministic rules engine (`resolveAction`) implemented with contagion/capture and scoring behavior.
+- ✅ Action-start constraints (`maxActions`, `maxCastles`) implemented.
+- ✅ Match-end helpers implemented, including "complete current chain even on timeout".
+- ✅ Turn director state machine added for cursor spawn windows, claim race behavior, timeout/expiry, and post-resolution reset.
+- ⏳ Next: connect turn director + rules + match flow into one game-loop orchestrator and add CPU action selection.
+
 ## Immediate Next Step
 
-Start with a **headless rules-engine prototype** (no graphics), then connect it to Three.js rendering. This reduces rework and lets balancing happen early.
+Wire `TurnDirector` + action resolution + match completion checks into a single headless loop API, then connect that loop to input and rendering.
