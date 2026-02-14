@@ -29,6 +29,10 @@ export function nextIndexInDirection(
   direction: Direction,
   wrapAround: boolean,
 ): number | null {
+  // Guard against out-of-range indices to avoid surprising wrap-around behavior.
+  if (index < 0 || index >= size * size) {
+    return null;
+  }
   const { row, col } = toCoord(size, index);
 
   const delta =
